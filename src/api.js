@@ -1,4 +1,6 @@
-const API_BASE = '/api'; // Configured with Vite proxy in dev
+const API_BASE = import.meta.env.MODE === 'production'
+  ? 'https://yousayideliver-backend.vercel.app/api'
+  : '/api'; // Configured with Vite proxy in dev
 
 // General request wrapper
 const request = async (url, options = {}) => {
@@ -123,7 +125,7 @@ export const api = {
       });
     },
     delete: (fileId) => request(`/media/${fileId}`, { method: 'DELETE' }),
-    getStreamUrl: (fileId) => `/api/media/${fileId}`
+    getStreamUrl: (fileId) => `${API_BASE}/media/${fileId}`
   },
   
   // Blogs API
